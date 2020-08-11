@@ -1,16 +1,27 @@
 #!/usr/bin/env bash
-/usr/bin/git clone --recursive --bare git@github.com:sfilipco/dotfiles.git $HOME/.cfg
+/usr/bin/git clone --recursive --bare "git@github.com:sfilipco/dotfiles.git" "$HOME/.cfg"
 function config {
-   /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
+   /usr/bin/git --git-dir="$HOME/.cfg/" --work-tree="$HOME" "$@"
 }
-mkdir -p $HOME/.config-backup
+mkdir -p "$HOME/.config-backup"
+cd "$HOME" || exit 1
 config checkout
-if [ $? = 0 ]; then
+if config checkout; then
   echo "Checked out config.";
   else
     echo "Backing up pre-existing dot files.";
-    config checkout 2>&1 | egrep "\s+\." | awk {'print $1'} | xargs -I{} mv {} $HOME/.config-backup/{}
+    config checkout 2>&1 | grep -E "\\s+\\." \
+        | awk "{'print $1'}" | xargs -I{} mv {} "$HOME/.config-backup/{}"
 fi;
-config checkout --recurse-submodules
+config checkout
 config config status.showUntrackedFiles no
+config submodule init
+config submodule update
 
+touch .zshrc.local
+
+"$HOME/.extra/fzf/install" --bin
+
+curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
+       https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+nvim +PlugInstall +qall
