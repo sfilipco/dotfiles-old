@@ -1,12 +1,8 @@
 " set runtimepath^=~/.vim runtimepath+=~/.vim/after
 " let &packpath = &runtimepath
 
-call plug#begin("$DEVTOOLS_PATH/nvim/plug")
+call plug#begin("~/.config/nvim/plug")
 
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 Plug 'neomake/neomake'
 Plug 'vim-syntastic/syntastic'
 Plug 'rust-lang/rust.vim'
@@ -125,12 +121,6 @@ let g:syntastic_mode_map = {
 let g:neomake_serialize = 1
 let g:neomake_serialize_abort_on_error = 1
 let g:rustfmt_autosave = 1
-
-" enable ncm2 for all buffers
-autocmd BufEnter * call ncm2#enable_for_buffer()
-
-" IMPORTANT: :help Ncm2PopupOpen for more information
-set completeopt=noinsert,menuone,noselect
 
 let g:VimuxHeight = "35"
 let g:VimuxOrientation = "h"
