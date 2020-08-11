@@ -1,3 +1,4 @@
+#!/usr/bin/env bash
 /usr/bin/git clone --recursive --bare git@github.com:sfilipco/dotfiles.git $HOME/.cfg
 function config {
    /usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME $@
