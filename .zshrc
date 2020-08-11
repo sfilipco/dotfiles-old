@@ -23,7 +23,7 @@ bindkey -v
 export EDITOR=nvim
 export VISUAL=nvim
 
-alias config='/usr/bin/git --git-dir=/Users/sfilip/.cfg/ --work-tree=/Users/sfilip'
+alias config="/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME"
 alias e=nvim
 disable -r time # disable shell reserved word
 alias time='time --verbose '
