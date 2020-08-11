@@ -1,3 +1,6 @@
 [submodule ".extra/fzf"]
 	path = .extra/fzf
 	url = https://github.com/junegunn/fzf.git
+[submodule ".extra/tpm"]
+	path = .extra/tpm
+	url = https://github.com/tmux-plugins/tpm

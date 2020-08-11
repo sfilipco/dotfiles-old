@@ -12,3 +12,8 @@ git clone --recursive --bare git@github.com:sfilipco/dotfiles.git $HOME/.cfg
 $HOME/.extra/fzf/install --bin
 nvim +PlugInstall +qall
 ```
+
+## Maintenance
+
+Note that the `.extra` directory contains submodules that need to be manually
+updated from time to time.
