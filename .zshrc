@@ -37,7 +37,7 @@ PS1='%{$fg[green]%}%n@%2m: %{$fg[blue]%}%~%{$fg[green]%}$(__git_ps1)%{$reset_col
 > '
 
 # Setup fzf
-export PATH="$HOME/.extra/fzf/bin"
+export PATH="$PATH:$HOME/.extra/fzf/bin"
 # Auto-completion
 [[ $- == *i* ]] && source "$HOME/.config/fzf/shell/completion.zsh" 2> /dev/null
 # Key bindings
