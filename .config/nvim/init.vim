@@ -10,7 +10,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug 'neomake/neomake'
 Plug 'vim-syntastic/syntastic'
 Plug 'rust-lang/rust.vim'
-Plug '~/devtools/fzf'
+Plug '~/.extra/fzf'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'joshdick/onedark.vim'

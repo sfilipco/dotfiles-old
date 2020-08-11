@@ -36,4 +36,12 @@ autoload -U colors && colors
 PS1='%{$fg[green]%}%n@%2m: %{$fg[blue]%}%~%{$fg[green]%}$(__git_ps1)%{$reset_color%}
 > '
 
+# Setup fzf
+export PATH="$HOME/.extra/fzf/bin"
+# Auto-completion
+[[ $- == *i* ]] && source "$HOME/.config/fzf/shell/completion.zsh" 2> /dev/null
+# Key bindings
+source "$HOME/.extra/fzf/shell/key-bindings.zsh"
+
+# Local overrides
 source $HOME/.zshrc.local
