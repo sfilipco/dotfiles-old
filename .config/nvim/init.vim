@@ -10,6 +10,7 @@ Plug '~/.extra/fzf'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'joshdick/onedark.vim'
+Plug 'morhetz/gruvbox'
 Plug 'roxma/vim-tmux-clipboard'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
@@ -81,7 +82,8 @@ cnoreabbrev Qall qall
 
 set termguicolors
 let g:onedark_hide_endofbuffer = 1
-colorscheme onedark
+let g:gruvbox_contrast_dark = 'soft'
+colorscheme gruvbox
 
 set rtp+=/usr/local/share/myc/vim
 
@@ -124,12 +126,6 @@ let g:rustfmt_autosave = 1
 
 let g:VimuxHeight = "35"
 let g:VimuxOrientation = "h"
-
-let g:LanguageClient_serverCommands = {
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ }
-" Automatically start language servers.
-let g:LanguageClient_autoStart = 1
 
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#formatter = 'default'
