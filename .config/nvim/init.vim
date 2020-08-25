@@ -4,11 +4,11 @@
 call plug#begin("~/.config/nvim/plug")
 
 Plug 'neomake/neomake'
-Plug 'vim-syntastic/syntastic'
+" Plug 'vim-syntastic/syntastic'
 Plug 'rust-lang/rust.vim'
 Plug '~/.extra/fzf'
 Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
+" Plug 'vim-airline/vim-airline-themes'
 Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
 Plug 'roxma/vim-tmux-clipboard'
@@ -16,12 +16,16 @@ Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
+" Plug 'sirver/UltiSnips'
+
+Plug 'neovim/nvim-lsp'
+Plug 'nvim-lua/lsp-status.nvim'
+Plug 'nathunsmitty/diagnostic-nvim'
+ Plug 'nvim-lua/completion-nvim'
 
 call plug#end()
 
-let g:python3_host_prog='/usr/bin/python3'
-
-function RunCargoTests()
+function! RunCargoTests()
     let path = split(expand("%:p:h"), "/")
     while len(path) > 0 && path[-1] !=? "src"
         call remove(path, -1)
@@ -65,6 +69,10 @@ set fileformats=unix,dos,mac
 
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufReadPost *.rs setlocal filetype=rust
+" Run NeoMake on read and write operations
+autocmd! BufReadPost,BufWritePost * Neomake
+" Use completion-nvim in every buffer
+autocmd BufEnter * lua require'completion'.on_attach()
 
 nmap " " <Nop>
 let mapleader=" "
@@ -106,14 +114,6 @@ nnoremap <Leader>. :cnext<CR>
 nnoremap <C-S> :update<CR>
 inoremap <C-S> <C-O>:update<CR>
 
-nnoremap <Leader>a :call LanguageClient_contextMenu()<CR>
-nnoremap <silent> <Leader>h :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> <Leader>d :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> <Leader>r :call LanguageClient#textDocument_rename()<CR>
-
-" Run NeoMake on read and write operations
-autocmd! BufReadPost,BufWritePost * Neomake
-
 " Disable inherited syntastic
 let g:syntastic_mode_map = {
   \ "mode": "passive",
@@ -135,3 +135,27 @@ set wildignore+=*/node_modules/*,_site,*/__pycache__/,*/venv/*,*/target/*,*/.vim
 " Tell FZF to use RG - so we can skip .gitignore files even if not using
 " :GitFiles search
 let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
+
+" LSP configuration
+
+" LSP config, in lua
+lua require("lsp")
+
+function! LspStatus() abort
+  if luaeval('#vim.lsp.buf_get_clients() > 0')
+    return luaeval("require('lsp-status').status()")
+  endif
+  return 'no-lsp-clients'
+endfunction
+set statusline+=\ %{LspStatus()}
+
+
+" Diagnostic settings
+let g:diagnostic_insert_delay = 1
+let g:diagnostic_show_sign = 1
+let g:diagnostic_enable_virtual_text = 1
+
+" Set completeopt to have a better completion experience
+set completeopt=menuone,noinsert,noselect
+" Avoid showing message extra message when using completion
+set shortmess+=c
