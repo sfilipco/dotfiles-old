@@ -21,7 +21,7 @@ Plug 'tpope/vim-surround'
 Plug 'neovim/nvim-lsp'
 Plug 'nvim-lua/lsp-status.nvim'
 Plug 'nathunsmitty/diagnostic-nvim'
- Plug 'nvim-lua/completion-nvim'
+Plug 'nvim-lua/completion-nvim'
 
 call plug#end()
 
@@ -67,6 +67,8 @@ set smartindent
 
 set fileformats=unix,dos,mac
 
+set spell spelllang=en_us
+
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufReadPost *.rs setlocal filetype=rust
 " Run NeoMake on read and write operations
@@ -98,13 +100,11 @@ set rtp+=/usr/local/share/myc/vim
 nnorema \ :Explore<CR>
 nnoremap <Leader>t :FZF<CR>
 nnoremap <leader>T :MYC<CR>
-nnoremap <Leader>f :tjump<CR>
+nnoremap <Leader>f g<C-]><CR>
 nnoremap <Leader>w :bw<CR>
 nnoremap <Leader>j :bp<CR>
 nnoremap <Leader>k :bn<CR>
 nnoremap <Leader>l :bn<CR>
-nnoremap <Leader>[ :bp<CR>
-nnoremap <Leader>] :bn<CR>
 nnoremap <Leader>v :VimuxRunLastCommand<CR>
 
 nnoremap <Leader>b :call RunCargoTests()<CR>

@@ -20,9 +20,11 @@ config submodule update
 
 touch .zshrc.local
 
+# fuzzy-finder, useful for most search models
 "$HOME/.extra/fzf/install" --bin
 
+# install vim-plug for nvim; plugin manager
 curl -fLo "${XDG_DATA_HOME:-$HOME/.local/share}"/nvim/site/autoload/plug.vim --create-dirs \
        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-# coc-vim requirement: curl -sL install-node.now.sh/lts | bash
+# install nvim plugins
 nvim +PlugInstall +qall
