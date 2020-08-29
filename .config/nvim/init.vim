@@ -67,8 +67,6 @@ set smartindent
 
 set fileformats=unix,dos,mac
 
-set spell spelllang=en_us
-
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufReadPost *.rs setlocal filetype=rust
 " Run NeoMake on read and write operations
@@ -113,6 +111,8 @@ nnoremap <Leader>. :cnext<CR>
 
 nnoremap <C-S> :update<CR>
 inoremap <C-S> <C-O>:update<CR>
+
+nnoremap ; :
 
 " Disable inherited syntastic
 let g:syntastic_mode_map = {
