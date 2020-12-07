@@ -88,7 +88,6 @@ cnoreabbrev W w
 cnoreabbrev Q q
 cnoreabbrev Qall qall
 
-set termguicolors
 let g:onedark_hide_endofbuffer = 1
 let g:gruvbox_contrast_dark = 'soft'
 colorscheme gruvbox
