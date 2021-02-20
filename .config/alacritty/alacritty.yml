@@ -70,7 +70,6 @@ scrolling:
 # Font configuration (changes require restart)
 font:
   normal:
-    family: Menlo Regular
     style: Regular
 
   # Normal (roman) font face
