@@ -1,9 +1,9 @@
 local lsp_status = require('lsp-status')
 lsp_status.register_progress()
 
-local nvim_lsp = require('nvim_lsp')
-local configs = require('nvim_lsp/configs')
-local util = require('nvim_lsp/util')
+local lspconfig = require('lspconfig')
+local configs = require('lspconfig/configs')
+local util = require('lspconfig/util')
 
 local diagnostic = require('diagnostic')
 -- local completion = require('completion')
@@ -26,7 +26,7 @@ local on_attach = function(client, bufnr)
 end
 
 
-nvim_lsp.rls.setup({
+lspconfig.rls.setup({
   on_attach = on_attach,
   capabilities = lsp_status.capabilities
 })
