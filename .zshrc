@@ -36,6 +36,8 @@ autoload -U colors && colors
 PS1='%{$fg[green]%}%n@%2m: %{$fg[blue]%}%~%{$fg[green]%}$(__git_ps1)%{$reset_color%}
 > '
 
+# Add .bin to PATH
+export PATH="$PATH:$HOME/.bin"
 # Setup fzf
 export PATH="$PATH:$HOME/.extra/fzf/bin"
 # Auto-completion

@@ -15,7 +15,7 @@ of the way to unblock the checkout.
 git clone --recursive --bare git@github.com:sfilipco/dotfiles.git $HOME/.cfg
 ```
 ```
-curl -Lks https://raw.githubusercontent.com/sfilipco/dotfiles/master/.bin/install-dotfiles.sh | /bin/bash
+curl -Lks https://raw.githubusercontent.com/sfilipco/dotfiles/master/.extra/install-dotfiles.sh | /bin/bash
 ```
 
 From here we will want to install `fzf`. Consider pulling in the submodule
@@ -31,7 +31,7 @@ After that we can start installing plugins for our applications.
 ### Nvim
 
 ```
-nvim +PlugInstall +qall
+e +PlugInstall +qall
 ```
 
 ### Tmux
