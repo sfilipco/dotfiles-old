@@ -22,6 +22,10 @@ touch .zshrc.local
 
 # fuzzy-finder, useful for most search models
 "$HOME/.extra/fzf/install" --bin
+# install tpm plugins
+"$HOME/.extra/tpm/scripts/update_plugin.sh"
+# this should install the plugins, in case this fails, the manual instalation
+# method is to use `C-A + I` (`prefix + capital I`)
 
 # install neovim
 curl -fLo "${HOME}/.bin/nvim" --create-dirs \
