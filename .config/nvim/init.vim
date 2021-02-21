@@ -4,19 +4,15 @@
 call plug#begin("~/.config/nvim/plug")
 
 Plug 'neomake/neomake'
-" Plug 'vim-syntastic/syntastic'
 Plug 'rust-lang/rust.vim'
 Plug '~/.extra/fzf'
 Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
 Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
 Plug 'roxma/vim-tmux-clipboard'
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
-Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-surround'
-" Plug 'sirver/UltiSnips'
 
 Plug 'neovim/nvim-lsp'
 Plug 'nvim-lua/lsp-status.nvim'
