@@ -552,8 +552,8 @@ key_bindings:
 
   - { key: Paste,                   action: Paste                            }
   - { key: Copy,                    action: Copy                             }
-  - { key: L,        mods: Control, action: ClearLogNotice                   }
-  - { key: L,        mods: Control, chars: "\x0c"                            }
+  # - { key: L,        mods: Control, action: ClearLogNotice                   }
+  # - { key: L,        mods: Control, chars: "\x0c"                            }
   - { key: Home,                    chars: "\x1bOH",        mode: AppCursor  }
   - { key: Home,                    chars: "\x1b[H",        mode: ~AppCursor }
   - { key: End,                     chars: "\x1bOF",        mode: AppCursor  }
