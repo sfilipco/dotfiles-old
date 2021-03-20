@@ -69,9 +69,6 @@ scrolling:
 
 # Font configuration (changes require restart)
 font:
-  normal:
-    style: Regular
-
   # Normal (roman) font face
   #normal:
     # Font family
@@ -345,7 +342,7 @@ mouse:
   # If this is `true`, the cursor is temporarily hidden when typing.
   hide_when_typing: false
 
-  url:
+  hints:
     # URL launcher
     #
     # This program is executed when clicking on a text which is recognized as a URL.
