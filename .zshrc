@@ -28,6 +28,13 @@ alias e=nvim
 disable -r time # disable shell reserved word
 alias time='time --verbose '
 
+alias gco="git checkout"
+alias gci="git commit"
+alias gamend="git commit -a --amend --no-edit"
+alias gst="git status"
+alias gba="git branch"
+alias gdi="git diff"
+
 # set XDG
 export XDG_CONFIG_HOME="${HOME}/.config"
 export XDG_CACHE_HOME="${HOME}/.cache"
