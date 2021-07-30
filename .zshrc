@@ -46,7 +46,7 @@ source $HOME/.config/shell/git-prompt.sh
 setopt PROMPT_SUBST
 autoload -U colors && colors
 PS1='%{$fg[green]%}%n@%2m: %{$fg[blue]%}%~%{$fg[green]%}$(__git_ps1)%{$reset_color%}
-> '
+[$(date +%H:%M:%S)]> '
 
 # Add .bin to PATH
 export PATH="$PATH:$HOME/.bin"
