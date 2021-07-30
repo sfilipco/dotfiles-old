@@ -7,7 +7,6 @@ Plug 'neomake/neomake'
 Plug 'rust-lang/rust.vim'
 Plug '~/.extra/fzf'
 Plug 'vim-airline/vim-airline'
-Plug 'joshdick/onedark.vim'
 Plug 'morhetz/gruvbox'
 Plug 'roxma/vim-tmux-clipboard'
 Plug 'christoomey/vim-tmux-navigator'
@@ -108,6 +107,8 @@ nnoremap <C-S> :update<CR>
 inoremap <C-S> <C-O>:update<CR>
 
 nnoremap ; :
+
+nnoremap <leader>D :execute ":!diffusion %:" . line(".") <CR>
 
 " Disable inherited syntastic
 let g:syntastic_mode_map = {

@@ -9,7 +9,7 @@ local diagnostic = require('diagnostic')
 -- local completion = require('completion')
 
 local set_keymap = function(key, mapping)
-    vim.fn.nvim_set_keymap("n", key, mapping, {noremap = true, silent = true})
+  vim.fn.nvim_set_keymap("n", key, mapping, {noremap = true, silent = true})
 end
 
 local on_attach = function(client, bufnr)
@@ -28,6 +28,42 @@ local on_attach = function(client, bufnr)
   set_keymap("g0", "<cmd>lua vim.lsp.buf.document_symbol()<CR>")
   set_keymap("gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<CR>")
 end
+
+-- buck specific
+
+local root_pattern = util.root_pattern(".buckconfig")
+
+local buck_root = function(fname)
+  local filename = util.path.is_absolute(fname) and fname
+    or util.path.join(vim.loop.cwd(), fname)
+  return root_pattern(filename) or util.path.dirname(filename)
+end;
+
+configs.rustls = {
+  default_config = {
+    cmd = {'nuclide-rls.sh'};
+    filetypes = {'rust'};
+    root_dir = buck_root;
+    settings = {};
+    callbacks = {
+      ['window/logMessage'] = function(err, method, params, client_id)
+        return {}
+      end;
+      ['window/showMessage'] = function(err, method, params, client_id)
+        return {}
+      end;
+      ['window/showFileStatus'] = function(err, method, params, client_id)
+        return {}
+      end;
+      ['client/registerCapability'] = function(err, method, params, client_id)
+        return {}
+      end;
+      ['workspace/configuration'] = function(err, method, params, client_id)
+        return {}
+      end;
+    }
+  }
+}
 
 
 lspconfig.rls.setup({
