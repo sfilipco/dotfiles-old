@@ -39,33 +39,6 @@ local buck_root = function(fname)
   return root_pattern(filename) or util.path.dirname(filename)
 end;
 
-configs.rustls = {
-  default_config = {
-    cmd = {'nuclide-rls.sh'};
-    filetypes = {'rust'};
-    root_dir = buck_root;
-    settings = {};
-    callbacks = {
-      ['window/logMessage'] = function(err, method, params, client_id)
-        return {}
-      end;
-      ['window/showMessage'] = function(err, method, params, client_id)
-        return {}
-      end;
-      ['window/showFileStatus'] = function(err, method, params, client_id)
-        return {}
-      end;
-      ['client/registerCapability'] = function(err, method, params, client_id)
-        return {}
-      end;
-      ['workspace/configuration'] = function(err, method, params, client_id)
-        return {}
-      end;
-    }
-  }
-}
-
-
 lspconfig.rls.setup({
   on_attach = on_attach,
   capabilities = lsp_status.capabilities

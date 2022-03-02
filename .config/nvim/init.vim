@@ -1,22 +1,39 @@
-" set runtimepath^=~/.vim runtimepath+=~/.vim/after
-" let &packpath = &runtimepath
-
 call plug#begin("~/.config/nvim/plug")
 
-Plug 'neomake/neomake'
-Plug 'rust-lang/rust.vim'
-Plug '~/.extra/fzf'
-Plug 'vim-airline/vim-airline'
+" style
 Plug 'morhetz/gruvbox'
-Plug 'roxma/vim-tmux-clipboard'
+Plug 'vim-airline/vim-airline'
+
+" navigation
 Plug 'christoomey/vim-tmux-navigator'
 Plug 'benmills/vimux'
+Plug 'roxma/vim-tmux-clipboard'
+
 Plug 'tpope/vim-surround'
 
-Plug 'neovim/nvim-lsp'
+" Telescope
+Plug 'nvim-lua/plenary.nvim'
+Plug 'nvim-telescope/telescope.nvim'
+
+Plug 'nvim-telescope/telescope-fzf-native.nvim', { 'do': 'make' }
+Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+
+" LSP
+Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/lsp-status.nvim'
-Plug 'nathunsmitty/diagnostic-nvim'
-Plug 'nvim-lua/completion-nvim'
+
+" Completion
+Plug 'hrsh7th/cmp-nvim-lsp'
+Plug 'hrsh7th/cmp-buffer'
+Plug 'hrsh7th/cmp-path'
+Plug 'hrsh7th/cmp-cmdline'
+Plug 'hrsh7th/nvim-cmp'
+Plug 'hrsh7th/cmp-vsnip'
+Plug 'hrsh7th/vim-vsnip'
+
+Plug 'rust-lang/rust.vim'
+
+Plug 'jiangmiao/auto-pairs'
 
 call plug#end()
 
@@ -64,10 +81,6 @@ set fileformats=unix,dos,mac
 
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufReadPost *.rs setlocal filetype=rust
-" Run NeoMake on read and write operations
-autocmd! BufReadPost,BufWritePost * Neomake
-" Use completion-nvim in every buffer
-autocmd BufEnter * lua require'completion'.on_attach()
 
 nmap " " <Nop>
 let mapleader=" "
@@ -87,28 +100,28 @@ let g:onedark_hide_endofbuffer = 1
 let g:gruvbox_contrast_dark = 'soft'
 colorscheme gruvbox
 
+nnoremap \ :Explore<cr>
 set rtp+=/usr/local/share/myc/vim
 
-nnorema \ :Explore<CR>
-nnoremap <Leader>t :FZF<CR>
-nnoremap <leader>T :MYC<CR>
-nnoremap <Leader>f g<C-]><CR>
-nnoremap <Leader>w :bw<CR>
-nnoremap <Leader>j :bp<CR>
-nnoremap <Leader>k :bn<CR>
-nnoremap <Leader>l :bn<CR>
-nnoremap <Leader>v :VimuxRunLastCommand<CR>
+nnoremap <leader>w :bw<cr>
+nnoremap <leader>j :bp<cr>
+nnoremap <leader>k :bn<cr>
+nnoremap <leader>l :bn<cr>
+nnoremap <leader>v :VimuxRunLastCommand<cr>
 
-nnoremap <Leader>b :call RunCargoTests()<CR>
-nnoremap <Leader>, :cprev<CR>
-nnoremap <Leader>. :cnext<CR>
+nnoremap <leader>b :call RunCargoTests()<cr>
+nnoremap <leader>r :lua vim.lsp.buf.rename()<cr>
 
-nnoremap <C-S> :update<CR>
-inoremap <C-S> <C-O>:update<CR>
+nnoremap <c-s> :update<cr>
+inoremap <c-s> <c-o>:update<cr>
 
 nnoremap ; :
 
-nnoremap <leader>D :execute ":!diffusion %:" . line(".") <CR>
+nnoremap <leader>f <cmd>Telescope find_files<cr>
+nnoremap <leader>g <cmd>Telescope live_grep<cr>
+nnoremap <leader>b <cmd>Telescope buffers<cr>
+nnoremap <leader>h <cmd>Telescope help_tags<cr>
+
 
 " Disable inherited syntastic
 let g:syntastic_mode_map = {
@@ -135,16 +148,16 @@ let $FZF_DEFAULT_COMMAND = 'rg --files --hidden'
 " LSP configuration
 
 " LSP config, in lua
-lua require("lsp")
+" lua require("lsp")
 
+" Statusline
 function! LspStatus() abort
-  if luaeval('#vim.lsp.buf_get_clients() > 0')
+  if luaeval('vim.lsp.buf_get_clients() > 0')
     return luaeval("require('lsp-status').status()")
   endif
-  return 'no-lsp-clients'
-endfunction
-set statusline+=\ %{LspStatus()}
 
+  return ''
+endfunction
 
 " Diagnostic settings
 let g:diagnostic_insert_delay = 1
@@ -152,6 +165,130 @@ let g:diagnostic_show_sign = 1
 let g:diagnostic_enable_virtual_text = 1
 
 " Set completeopt to have a better completion experience
-set completeopt=menuone,noinsert,noselect
+set completeopt=menu,menuone,noselect
+" set completeopt=menuone,noinsert,noselect
 " Avoid showing message extra message when using completion
 set shortmess+=c
+
+" LUA !!
+lua << EOS
+require('telescope').setup {
+  extensions = {
+    fzf = {
+      fuzzy = true,                    -- false will only do exact matching
+      override_generic_sorter = true,  -- override the generic sorter
+      override_file_sorter = true,     -- override the file sorter
+      case_mode = "smart_case",        -- or "ignore_case" or "respect_case"
+                                       -- the default case_mode is "smart_case"
+    }
+  }
+}
+
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+    -- disable = { "rust" },
+    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
+    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
+    -- Using this option may slow down your editor, and you may see some duplicate highlights.
+    -- Instead of true it can also be a list of languages
+    additional_vim_regex_highlighting = false,
+  },
+}
+
+
+-- Setup nvim-cmp.
+local cmp = require'cmp'
+
+cmp.setup({
+  snippet = {
+    expand = function(args)
+      vim.fn["vsnip#anonymous"](args.body)
+    end,
+  },
+  mapping = {
+    ['<C-b>'] = cmp.mapping(cmp.mapping.scroll_docs(-4), { 'i', 'c' }),
+    ['<C-f>'] = cmp.mapping(cmp.mapping.scroll_docs(4), { 'i', 'c' }),
+    ['<Tab>'] = cmp.mapping(cmp.mapping.select_next_item(), { 'i', 's' }),
+    ['<cr>'] = cmp.mapping.confirm({ select = true }),
+  },
+  sources = cmp.config.sources({
+    { name = 'nvim_lsp' },
+    { name = 'vsnip' },
+  }, {
+    { name = 'buffer' },
+  })
+})
+
+-- Use buffer source for `/` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline('/', {
+  sources = {
+    { name = 'buffer' }
+  }
+})
+
+-- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
+})
+
+-- Setup lspconfig.
+local lsp_status = require('lsp-status')
+-- lsp_status.register_progress()
+
+local capabilities = vim.lsp.protocol.make_client_capabilities()
+require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities.window = capabilities.window or {}
+capabilities.window.workDoneProgress = true
+
+local nvim_lsp = require'lspconfig'
+
+local set_keymap = function(key, mapping)
+  vim.api.nvim_set_keymap("n", key, mapping, {noremap = true, silent = true})
+end
+
+local on_attach = function(client, bufnr)
+  lsp_status.on_attach(client)
+
+  -- Keybindings for LSPs
+  -- Note these are in on_attach so that they don't override bindings in a non-LSP setting
+  set_keymap("gd", "<cmd>lua vim.lsp.buf.definition()<cr>")
+  set_keymap("gD", "<cmd>lua vim.lsp.buf.implementation()<cr>")
+  set_keymap("1gD", "<cmd>lua vim.lsp.buf.type_definition()<cr>")
+  set_keymap("gh", "<cmd>lua vim.lsp.buf.hover()<cr>")
+  set_keymap("<c-k>", "<cmd>lua vim.lsp.buf.signature_help()<cr>")
+  set_keymap("gr", "<cmd>lua vim.lsp.buf.references()<cr>")
+  set_keymap("g0", "<cmd>lua vim.lsp.buf.document_symbol()<cr>")
+  set_keymap("gW", "<cmd>lua vim.lsp.buf.workspace_symbol()<cr>")
+  set_keymap("ga", "<cmd>lua vim.lsp.buf.code_action()<cr>")
+
+  set_keymap("g[", "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>")
+  set_keymap("g]", "<cmd>lua vim.lsp.diagnostic.goto_next()<cr>")
+  set_keymap("g/", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<cr>")
+end
+
+nvim_lsp.rust_analyzer.setup({
+    capabilities=capabilities,
+    on_attach=on_attach,
+    settings = {
+        ["rust-analyzer"] = {
+            assist = {
+                importGranularity = "module",
+                importPrefix = "by_self",
+            },
+            cargo = {
+                loadOutDirsFromCheck = true
+            },
+            procMacro = {
+                enable = true
+            },
+        }
+    }
+})
+EOS

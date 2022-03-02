@@ -19,6 +19,17 @@ The problem with using clone directly is that it is easy to run into
 `.config` to have already been created. In that case the script moves the old
 configs to `.config-backup` as a way to unblock the checkout.
 
+### Programs to install
+
+* neovim
+* ripgrep
+* fd
+* tmux
+* rust-analyzer
+
+```
+brew install neovim ripgrep fd tmux rust-analyzer
+```
 
 ### Tmux
 
