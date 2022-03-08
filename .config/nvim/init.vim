@@ -122,6 +122,15 @@ nnoremap <leader>g <cmd>Telescope live_grep<cr>
 nnoremap <leader>b <cmd>Telescope buffers<cr>
 nnoremap <leader>h <cmd>Telescope help_tags<cr>
 
+" Colemak
+noremap e k
+noremap E K
+noremap k n
+noremap K N
+noremap n j
+noremap N J
+noremap j e
+noremap J E
 
 " Disable inherited syntastic
 let g:syntastic_mode_map = {
