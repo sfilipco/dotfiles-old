@@ -104,9 +104,8 @@ nnoremap \ :Explore<cr>
 set rtp+=/usr/local/share/myc/vim
 
 nnoremap <leader>w :bw<cr>
-nnoremap <leader>j :bp<cr>
-nnoremap <leader>k :bn<cr>
-nnoremap <leader>l :bn<cr>
+nnoremap <leader>n :bp<cr>
+nnoremap <leader>e :bn<cr>
 nnoremap <leader>v :VimuxRunLastCommand<cr>
 
 nnoremap <leader>b :call RunCargoTests()<cr>
@@ -131,6 +130,14 @@ noremap n j
 noremap N J
 noremap j e
 noremap J E
+
+let g:tmux_navigator_no_mappings = 1
+nnoremap <silent> C-n :TmuxNavigateLeft<cr>
+nnoremap <silent> C-e :TmuxNavigateDown<cr>
+" nnoremap <silent> :TmuxNavigateUp<cr>
+" nnoremap <silent> :TmuxNavigateRight<cr>
+nnoremap <silent> C-<Tab> :TmuxNavigatePrevious<cr>
+
 
 " Disable inherited syntastic
 let g:syntastic_mode_map = {
