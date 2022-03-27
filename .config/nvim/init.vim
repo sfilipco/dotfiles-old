@@ -307,4 +307,6 @@ nvim_lsp.rust_analyzer.setup({
         }
     }
 })
+
+require'lspconfig'.jedi_language_server.setup{}
 EOS

@@ -26,6 +26,7 @@ configs to `.config-backup` as a way to unblock the checkout.
 * fd
 * tmux
 * rust-analyzer
+* jedi language server
 
 ```
 brew install neovim ripgrep fd tmux rust-analyzer
