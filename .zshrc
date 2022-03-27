@@ -1,3 +1,18 @@
+# Plugins
+[[ -f ~/Git/zsh-snap/znap.zsh ]] ||
+    git clone --depth 1 -- \
+        https://github.com/marlonrichert/zsh-snap.git ~/Git/zsh-snap
+
+source ~/Git/zsh-snap/znap.zsh  # Start Znap
+
+# `znap prompt` makes your prompt visible in just 15-40ms!
+# znap prompt sindresorhus/pure
+
+# `znap source` automatically downloads and starts your plugins.
+# znap source marlonrichert/zsh-autocomplete
+znap source zsh-users/zsh-autosuggestions
+znap source zsh-users/zsh-syntax-highlighting
+
 # Setup history
 setopt HIST_FIND_NO_DUPS
 setopt HIST_IGNORE_ALL_DUPS
@@ -53,9 +68,10 @@ export PATH="$PATH:$HOME/.bin"
 # Setup fzf
 export PATH="$PATH:$HOME/.extra/fzf/bin"
 # Auto-completion
-[[ $- == *i* ]] && source "$HOME/.config/fzf/shell/completion.zsh" 2> /dev/null
+[[ $- == *i* ]] && source "$HOME/.extra/fzf/shell/completion.zsh" 2> /dev/null
 # Key bindings
 source "$HOME/.extra/fzf/shell/key-bindings.zsh"
 
 # Local overrides
 source $HOME/.zshrc.local
+
