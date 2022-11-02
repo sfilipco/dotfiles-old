@@ -204,7 +204,7 @@ require('telescope').setup {
 }
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = { "rust" }
+  ensure_installed = { "rust" },
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
   auto_install = true,
   highlight = {
