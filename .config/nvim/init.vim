@@ -204,8 +204,9 @@ require('telescope').setup {
 }
 
 require'nvim-treesitter.configs'.setup {
-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = { "rust" }
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+  auto_install = true,
   highlight = {
     enable = true,              -- false will disable the whole extension
     -- disable = { "rust" },
@@ -261,8 +262,7 @@ cmp.setup.cmdline(':', {
 local lsp_status = require('lsp-status')
 -- lsp_status.register_progress()
 
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-require('cmp_nvim_lsp').update_capabilities(capabilities)
+local capabilities = require('cmp_nvim_lsp').default_capabilities()
 capabilities.window = capabilities.window or {}
 capabilities.window.workDoneProgress = true
 
