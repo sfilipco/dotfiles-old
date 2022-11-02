@@ -82,6 +82,9 @@ set fileformats=unix,dos,mac
 autocmd BufWritePre * %s/\s\+$//e
 autocmd BufReadPost *.rs setlocal filetype=rust
 
+autocmd FileType xml setlocal tabstop=2
+autocmd FileType xml setlocal shiftwidth=2
+
 nmap " " <Nop>
 let mapleader=" "
 
