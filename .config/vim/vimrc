@@ -1,0 +1,82 @@
+set nocompatible
+
+set directory=$XDG_CACHE_HOME/vim/swap,~/,/tmp
+set backupdir=$XDG_CACHE_HOME/vim/backup,~/,/tmp
+set undodir=$XDG_CACHE_HOME/vim/undo,~/,/tmp
+set viminfo+=n$XDG_CACHE_HOME/vim/viminfo
+set runtimepath+=$XDG_CONFIG_HOME/vim,$XDG_CONFIG_HOME/vim/after,$VIM,$VIMRUNTIME
+let $MYVIMRC="$XDG_CONFIG_HOME/vim/vimrc"
+
+set encoding=utf-8
+set fileencoding=utf-8
+set fileencodings=utf-8
+set backspace=indent,eol,start
+set tabstop=4
+set softtabstop=0
+set shiftwidth=4
+set expandtab
+set so=999  " scrolloff, a large value will center the cursor in the file
+
+set hidden
+
+set nohlsearch
+set incsearch
+set ignorecase
+set smartcase
+
+set nobackup
+set noswapfile
+set undodir=~/.vim/undodir
+set undofile
+set clipboard+=unnamedplus
+
+set autoindent
+set smartindent
+
+set fileformats=unix,dos,mac
+
+autocmd BufWritePre * %s/\s\+$//e
+autocmd BufReadPost *.rs setlocal filetype=rust
+
+autocmd FileType xml setlocal tabstop=2
+autocmd FileType xml setlocal shiftwidth=2
+
+nmap " " <Nop>
+let mapleader=" "
+
+cnoreabbrev W! w!
+cnoreabbrev Q! q!
+cnoreabbrev Qall! qall!
+cnoreabbrev Wq wq
+cnoreabbrev Wa wa
+cnoreabbrev wQ wq
+cnoreabbrev WQ wq
+cnoreabbrev W w
+cnoreabbrev Q q
+cnoreabbrev Qall qall
+
+nnoremap \ :Explore<cr>
+set rtp+=/usr/local/share/myc/vim
+
+nnoremap <leader>w :bw<cr>
+nnoremap <leader>n :bp<cr>
+nnoremap <leader>e :bn<cr>
+nnoremap <leader>v :VimuxRunLastCommand<cr>
+
+nnoremap <leader>b :call RunCargoTests()<cr>
+nnoremap <leader>r :lua vim.lsp.buf.rename()<cr>
+
+nnoremap <c-s> :update<cr>
+inoremap <c-s> <c-o>:update<cr>
+
+nnoremap ; :
+
+" Colemak
+noremap e k
+noremap E K
+noremap k n
+noremap K N
+noremap n j
+noremap N J
+noremap j e
+noremap J E
