@@ -61,10 +61,6 @@ set rtp+=/usr/local/share/myc/vim
 nnoremap <leader>w :bw<cr>
 nnoremap <leader>n :bp<cr>
 nnoremap <leader>e :bn<cr>
-nnoremap <leader>v :VimuxRunLastCommand<cr>
-
-nnoremap <leader>b :call RunCargoTests()<cr>
-nnoremap <leader>r :lua vim.lsp.buf.rename()<cr>
 
 nnoremap <c-s> :update<cr>
 inoremap <c-s> <c-o>:update<cr>
