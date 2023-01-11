@@ -73,6 +73,11 @@ scrolling:
 
 # Font configuration (changes require restart)
 font:
+  normal:
+    # family: Menlo
+    family: MesloLGS Nerd Font
+    # family: Cousine Nerd Font
+    # family: FiraCode Nerd Font
   # Normal (roman) font face
   #normal:
     # Font family
